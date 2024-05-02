@@ -1,0 +1,75 @@
+INFO:root:start 0 epoch
+INFO:root:epoch: 0 took 245.52s
+INFO:root:Epoch mean loss: 0.6902439600141178
+INFO:root:val auc: 0.9338076204291239, new node val auc: 0.9322798155737705
+INFO:root:val ap: 0.9362680692893801, new node val ap: 0.9361159070998069
+INFO:root:start 1 epoch
+INFO:root:epoch: 1 took 211.95s
+INFO:root:Epoch mean loss: 0.5728114245119941
+INFO:root:val auc: 0.9524369821738218, new node val auc: 0.9570900614754098
+INFO:root:val ap: 0.9558617665072674, new node val ap: 0.9607341476733933
+INFO:root:start 2 epoch
+INFO:root:epoch: 2 took 211.22s
+INFO:root:Epoch mean loss: 0.533811487000564
+INFO:root:val auc: 0.9538586041559479, new node val auc: 0.9582789959016393
+INFO:root:val ap: 0.9582871833987623, new node val ap: 0.9626182981379185
+INFO:root:start 3 epoch
+INFO:root:epoch: 3 took 210.94s
+INFO:root:Epoch mean loss: 0.5056747502000462
+INFO:root:val auc: 0.9567046520989348, new node val auc: 0.9618660860655738
+INFO:root:val ap: 0.9608196414895375, new node val ap: 0.9656474945036988
+INFO:root:start 4 epoch
+INFO:root:epoch: 4 took 210.73s
+INFO:root:Epoch mean loss: 0.49582132432848364
+INFO:root:val auc: 0.956573497256045, new node val auc: 0.9609171106557377
+INFO:root:val ap: 0.9614208768768815, new node val ap: 0.9654166533179388
+INFO:root:start 5 epoch
+INFO:root:epoch: 5 took 210.10s
+INFO:root:Epoch mean loss: 0.4808911069346766
+INFO:root:val auc: 0.9598909570971244, new node val auc: 0.9644182377049181
+INFO:root:val ap: 0.9635692146639724, new node val ap: 0.9678890590646849
+INFO:root:start 6 epoch
+INFO:root:epoch: 6 took 210.64s
+INFO:root:Epoch mean loss: 0.47823697677239996
+INFO:root:val auc: 0.9605802366184568, new node val auc: 0.9655292008196721
+INFO:root:val ap: 0.9646339321837937, new node val ap: 0.9691564319294228
+INFO:root:start 7 epoch
+INFO:root:epoch: 7 took 212.00s
+INFO:root:Epoch mean loss: 0.46486017599775287
+INFO:root:val auc: 0.9615682056155794, new node val auc: 0.9646941598360655
+INFO:root:val ap: 0.9657940101124397, new node val ap: 0.9684287317168355
+INFO:root:start 8 epoch
+INFO:root:epoch: 8 took 210.64s
+INFO:root:Epoch mean loss: 0.4598347348679463
+INFO:root:val auc: 0.9628186091103108, new node val auc: 0.9650844262295082
+INFO:root:val ap: 0.9670162429623425, new node val ap: 0.9687030374648218
+INFO:root:start 9 epoch
+INFO:root:epoch: 9 took 211.09s
+INFO:root:Epoch mean loss: 0.4449687386895048
+INFO:root:val auc: 0.9651220328607634, new node val auc: 0.9667440573770492
+INFO:root:val ap: 0.9689887813983514, new node val ap: 0.9703880161149986
+INFO:root:start 10 epoch
+INFO:root:epoch: 10 took 210.74s
+INFO:root:Epoch mean loss: 0.43966093270355844
+INFO:root:val auc: 0.9663308563901752, new node val auc: 0.96835625
+INFO:root:val ap: 0.9698063730360081, new node val ap: 0.971332064825597
+INFO:root:start 11 epoch
+INFO:root:epoch: 11 took 211.73s
+INFO:root:Epoch mean loss: 0.43347079556416995
+INFO:root:val auc: 0.9673943246346158, new node val auc: 0.9695269467213113
+INFO:root:val ap: 0.9710074381695118, new node val ap: 0.9730802047677735
+INFO:root:start 12 epoch
+INFO:root:epoch: 12 took 210.43s
+INFO:root:Epoch mean loss: 0.4335361034632316
+INFO:root:val auc: 0.9674558335238858, new node val auc: 0.9687350409836067
+INFO:root:val ap: 0.9708653410303569, new node val ap: 0.9720747485609856
+INFO:root:start 13 epoch
+INFO:root:epoch: 13 took 210.43s
+INFO:root:Epoch mean loss: 0.4243233055243351
+INFO:root:val auc: 0.9687124085348424, new node val auc: 0.9708265368852459
+INFO:root:val ap: 0.9720623581786404, new node val ap: 0.9737640739829545
+INFO:root:start 14 epoch
+INFO:root:epoch: 14 took 210.09s
+INFO:root:Epoch mean loss: 0.4268230225138476
+INFO:root:val auc: 0.9687594278187465, new node val auc: 0.9697355532786885
+INFO:root:val ap: 0.9721658314688235, new node val ap: 0.9730201411034481
