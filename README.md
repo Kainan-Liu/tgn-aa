@@ -24,7 +24,7 @@ We use the dense `npy` format to save the features in binary format. If edge fea
 features are absent, they will be replaced by a vector of zeros. 
 ```{bash}
 python utils/preprocess_data.py --data wikipedia --bipartite
-
+```
 
 ### Training on Wikipedia Dataset
 Self-supervised learning using the link prediction task:
