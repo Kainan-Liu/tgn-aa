@@ -64,6 +64,8 @@ parser.add_argument('--n_neg', type=int, default=1)
 parser.add_argument('--use_validation', action='store_true',
                     help='Whether to use a validation set')
 parser.add_argument('--new_node', action='store_true', help='model new node')
+parser.add_argument('--learnable', action="store_true",
+                    help="Whether Message Aggregator is learnable module")
 
 try:
   args = parser.parse_args()
@@ -148,7 +150,7 @@ for i in range(args.n_runs):
             mean_time_shift_src=mean_time_shift_src, std_time_shift_src=std_time_shift_src,
             mean_time_shift_dst=mean_time_shift_dst, std_time_shift_dst=std_time_shift_dst,
             use_destination_embedding_in_message=args.use_destination_embedding_in_message,
-            use_source_embedding_in_message=args.use_source_embedding_in_message)
+            use_source_embedding_in_message=args.use_source_embedding_in_message, learnable=args.learnable)
 
   tgn = tgn.to(device)
 
