@@ -84,14 +84,14 @@ class MeanMessageAggregator(MessageAggregator):
 
 
 class AttentionMessageAggregator(MessageAggregator):
-  def __init__(self, device, n_heads: int, message_dim: int, dropout: float=0, post_norm: Optional[bool] = None):
+  def __init__(self, device, n_heads: int, message_dim: int, dropout: float=0, post_norm: Optional[bool] = None, learnable: Optional[bool]=None):
     super(AttentionMessageAggregator, self).__init__(device)
     self.device = device
     self.n_heads = n_heads
     self.message_dim = message_dim
-    self.q_proj = nn.Linear(in_features=message_dim, out_features=message_dim)
-    self.k_proj = nn.Linear(in_features=message_dim, out_features=message_dim)
-    self.v_proj = nn.Linear(in_features=message_dim, out_features=message_dim)
+    self.q_proj = nn.Linear(in_features=message_dim, out_features=message_dim) if learnable else nn.Identity()
+    self.k_proj = nn.Linear(in_features=message_dim, out_features=message_dim) if learnable else nn.Identity()
+    self.v_proj = nn.Linear(in_features=message_dim, out_features=message_dim) if learnable else nn.Identity()
 
     self.dropout = nn.Dropout(p=dropout)
     self.layer_norm = nn.LayerNorm(normalized_shape=message_dim) if post_norm else nn.Identity()
@@ -170,12 +170,12 @@ class AttentionMessageAggregator(MessageAggregator):
       return to_update_node_ids, unique_messages, unique_timestamps
 
 
-def get_message_aggregator(aggregator_type, device, n_heads, message_dim):
+def get_message_aggregator(aggregator_type, device, n_heads, message_dim, learnable):
   if aggregator_type == "last":
     return LastMessageAggregator(device=device)
   elif aggregator_type == "mean":
     return MeanMessageAggregator(device=device)
   elif aggregator_type == "attention":
-    return AttentionMessageAggregator(device=device, n_heads=n_heads, message_dim=message_dim)
+    return AttentionMessageAggregator(device=device, n_heads=n_heads, message_dim=message_dim, learnable=learnable)
   else:
     raise ValueError("Message aggregator {} not implemented".format(aggregator_type))
