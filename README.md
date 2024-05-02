@@ -27,25 +27,18 @@ python utils/preprocess_data.py --data wikipedia --bipartite
 ```
 
 ### Training on Wikipedia Dataset
-Self-supervised learning using the link prediction task:
 ```{bash}
-# TGN-attn: Self-Supervised learning on the wikipedia dataset
+### tgn-aa
+# TGN-attn with attention aggregator: Self-Supervised learning on the wikipedia dataset
 python train_self_supervised.py --aggregator attention --use_memory --prefix tgn-attn --n_runs 10
 
-Supervised learning on dynamic node classification (this requires a trained model from 
-the self-supervised task, by eg. running the commands above):
-```{bash}
-# TGN-attn: supervised learning on the wikipedia dataset
+# TGN-attn with attention aggregator: supervised learning on the wikipedia dataset
 python train_supervised.py --aggregator attention --use_memory --prefix tgn-attn --n_runs 10
 
-
 ### Baselines
-```{bash}
-### Wikipedia Self-supervised
 # Jodie
 python train_self_supervised.py --use_memory --memory_updater rnn --embedding_module time --prefix jodie_rnn --n_runs 10
 
-### Wikipedia Supervised
 # Jodie
 python train_supervised.py --use_memory --memory_updater rnn --embedding_module time --prefix jodie_rnn --n_runs 10
 ```
