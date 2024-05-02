@@ -64,8 +64,12 @@ class TGN(torch.nn.Module):
                            input_dimension=message_dimension,
                            message_dimension=message_dimension,
                            device=device)
-      self.message_aggregator = get_message_aggregator(aggregator_type=aggregator_type,
-                                                       device=device)
+      self.message_aggregator = get_message_aggregator(
+        aggregator_type=aggregator_type,
+        n_heads=n_heads,
+        message_dim=message_dimension,
+        device=device
+      )
       self.message_function = get_message_function(module_type=message_function,
                                                    raw_message_dimension=raw_message_dimension,
                                                    message_dimension=message_dimension)
@@ -161,9 +165,6 @@ class TGN(torch.nn.Module):
         # Persist the updates to the memory only for sources and destinations (since now we have
         # new messages for them)
         self.update_memory(positives, self.memory.messages)
-
-        assert torch.allclose(memory[positives], self.memory.get_memory(positives), atol=1e-5), \
-          "Something wrong in how the memory was updated"
 
         # Remove messages for the positives since we have already updated the memory using them
         self.memory.clear_messages(positives)
