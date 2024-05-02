@@ -23,7 +23,7 @@ class TGN(torch.nn.Module):
                memory_updater_type="gru",
                use_destination_embedding_in_message=False,
                use_source_embedding_in_message=False,
-               dyrep=False, learnable=False):
+               dyrep=False, learnable=False, add_cls_token=None):
     super(TGN, self).__init__()
 
     self.n_layers = n_layers
@@ -69,7 +69,8 @@ class TGN(torch.nn.Module):
         n_heads=n_heads,
         message_dim=message_dimension,
         device=device,
-        learnable=learnable
+        learnable=learnable,
+        add_cls_token=add_cls_token
       )
       self.message_function = get_message_function(module_type=message_function,
                                                    raw_message_dimension=raw_message_dimension,

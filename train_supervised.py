@@ -66,6 +66,8 @@ parser.add_argument('--use_validation', action='store_true',
 parser.add_argument('--new_node', action='store_true', help='model new node')
 parser.add_argument('--learnable', action="store_true",
                     help="Whether Message Aggregator is learnable module")
+parser.add_argument('--add_cls_token', action="store_true",
+                    help="Apend cls token like BERT to represent the final message")
 
 try:
   args = parser.parse_args()
@@ -150,7 +152,8 @@ for i in range(args.n_runs):
             mean_time_shift_src=mean_time_shift_src, std_time_shift_src=std_time_shift_src,
             mean_time_shift_dst=mean_time_shift_dst, std_time_shift_dst=std_time_shift_dst,
             use_destination_embedding_in_message=args.use_destination_embedding_in_message,
-            use_source_embedding_in_message=args.use_source_embedding_in_message, learnable=args.learnable)
+            use_source_embedding_in_message=args.use_source_embedding_in_message, learnable=args.learnable,
+            add_cls_token=args.add_cls_token)
 
   tgn = tgn.to(device)
 
