@@ -9,7 +9,7 @@ import pickle
 from pathlib import Path
 
 from evaluation.evaluation import eval_edge_prediction
-from model.tgn import TGN
+from tgn import TGN
 from utils.utils import EarlyStopMonitor, RandEdgeSampler, get_neighbor_finder
 from utils.data_processing import get_data, compute_time_statistics
 
@@ -43,8 +43,7 @@ parser.add_argument('--message_function', type=str, default="identity", choices=
   "mlp", "identity"], help='Type of message function')
 parser.add_argument('--memory_updater', type=str, default="gru", choices=[
   "gru", "rnn"], help='Type of memory updater')
-parser.add_argument('--aggregator', type=str, default="last", help='Type of message '
-                                                                        'aggregator')
+parser.add_argument('--aggregator', type=str, default="last", choices=["last", "mean", "attention"], help='Type of message aggregator')
 parser.add_argument('--memory_update_at_end', action='store_true',
                     help='Whether to update memory at the end or at the start of the batch')
 parser.add_argument('--message_dim', type=int, default=100, help='Dimensions of the messages')
