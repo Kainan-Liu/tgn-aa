@@ -33,13 +33,8 @@ python utils/preprocess_data.py --data wikipedia --bipartite
 ## unlearnable
 python train_self_supervised.py --aggregator attention --use_memory --prefix tgn-attn --n_runs 10
 ## learnable
-python train_self_supervised.py --aggregator attention --learnable --use_memory --prefix tgn-attn --n_runs 10
+python train_self_supervised.py --aggregator attention --learnable --use_memory --prefix tgn-attn --n_runs 10 --add_cls_token
 
-# TGN-attn with attention aggregator: supervised learning on the wikipedia dataset
-## unlearnable
-python train_supervised.py --aggregator attention --use_memory --prefix tgn-attn --n_runs 10
-## learnable
-python train_supervised.py --aggregator attention --learnable --use_memory --prefix tgn-attn --n_runs 10
 
 ### Baselines
 # Jodie
