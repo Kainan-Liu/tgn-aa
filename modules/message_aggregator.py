@@ -3,6 +3,7 @@ from typing import Optional
 import torch
 import numpy as np
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class MessageAggregator(torch.nn.Module):
@@ -84,7 +85,7 @@ class MeanMessageAggregator(MessageAggregator):
 
 
 class AttentionMessageAggregator(MessageAggregator):
-  def __init__(self, device, n_heads: int, message_dim: int, dropout: float=0, post_norm: Optional[bool] = None, learnable: Optional[bool]=None):
+  def __init__(self, device, n_heads: int, message_dim: int, dropout: float=0, post_norm: Optional[bool] = None, learnable: Optional[bool]=None, add_cls_token: Optional[bool]=None):
     super(AttentionMessageAggregator, self).__init__(device)
     self.device = device
     self.n_heads = n_heads
@@ -95,6 +96,7 @@ class AttentionMessageAggregator(MessageAggregator):
 
     self.dropout = nn.Dropout(p=dropout)
     self.layer_norm = nn.LayerNorm(normalized_shape=message_dim) if post_norm else nn.Identity()
+    self.add_cls_token = add_cls_token
 
   def attention(self, padding_message: torch.Tensor, attention_mask: Optional[torch.Tensor] = None):
     num_unique_nodes, padding_length, message_dim = padding_message.shape
@@ -157,25 +159,27 @@ class AttentionMessageAggregator(MessageAggregator):
           unique_timestamps.append(messages[node_id][-1][1])
           idx += 1
         
-      cls_message = torch.zeros(num_unique_nodes, 1, message_dim, device=self.device)
-      cls_attention_mask = torch.zeros(num_unique_nodes, 1, device=self.device)
-      padding_message_with_cls_token = torch.concat((cls_message, padding_message), dim=1)
-      attention_mask_with_cls_token = torch.concat((cls_attention_mask, attention_mask), dim=1)
-    
-      updated_attention_message = self.attention(padding_message_with_cls_token, attention_mask_with_cls_token) # [num_unique_nodes, max_length, message_dim]
-    
-      unique_messages = updated_attention_message[:, 0, :].squeeze(1) if len(to_update_node_ids) > 0 else []
+      if self.add_cls_token:
+        cls_message = torch.zeros(num_unique_nodes, 1, message_dim, device=self.device)
+        cls_attention_mask = torch.zeros(num_unique_nodes, 1, device=self.device)
+        padding_message_with_cls_token = torch.concat((cls_message, padding_message), dim=1)
+        attention_mask_with_cls_token = torch.concat((cls_attention_mask, attention_mask), dim=1)
+        updated_attention_message = self.attention(padding_message_with_cls_token, attention_mask_with_cls_token) # [num_unique_nodes, max_length, message_dim]
+        unique_messages = updated_attention_message[:, 0, :].squeeze(1)
+      else:
+        updated_attention_message = self.attention(padding_message, attention_mask)
+        unique_messages = F.avg_pool1d(updated_attention_message.transpose(-1, -2), kernel_size=max_length, stride=max_length).squeeze(-1)
+        
       unique_timestamps = torch.stack(unique_timestamps) if len(to_update_node_ids) > 0 else []
-    
       return to_update_node_ids, unique_messages, unique_timestamps
 
 
-def get_message_aggregator(aggregator_type, device, n_heads, message_dim, learnable):
+def get_message_aggregator(aggregator_type, device, n_heads, message_dim, learnable, add_cls_token):
   if aggregator_type == "last":
     return LastMessageAggregator(device=device)
   elif aggregator_type == "mean":
     return MeanMessageAggregator(device=device)
   elif aggregator_type == "attention":
-    return AttentionMessageAggregator(device=device, n_heads=n_heads, message_dim=message_dim, learnable=learnable)
+    return AttentionMessageAggregator(device=device, n_heads=n_heads, message_dim=message_dim, learnable=learnable, add_cls_token=add_cls_token)
   else:
     raise ValueError("Message aggregator {} not implemented".format(aggregator_type))
