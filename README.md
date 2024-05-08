@@ -10,7 +10,7 @@ Dynamic Graph             |  TGN
 ## What's Difference between tgn and tgn-aa
 Multiple choices can be condidered for implementing the Message Aggregator module. While the original paper only considered two efficient __non-learnable__ solutions: most recent message (keep only most recent message for a given node) and mean message (average all messages for a given node), our tgn-aa design a __learable attention-based aggregation__ to aggregate the messages from multiple events for nodes in the same batch
 
-![TGN-AA](https://github.com/kAI-swa/tgn-aa/assets/146005327/cc9d3cc7-3824-4196-9c73-2b5e7097c362){ width="800" height="600" style="display: block; margin: 0 auto" }
+![TGN-AA](https://github.com/kAI-swa/tgn-aa/assets/146005327/cc9d3cc7-3824-4196-9c73-2b5e7097c362)
 
 
 ## What's changed
